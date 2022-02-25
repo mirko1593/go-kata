@@ -27,3 +27,9 @@ after: input.Read(buf[:end])
 ```
 2. allocation happened when make a un-constant sized slice: make([]byte, size) => make([]byte, 5) // this is a trick
 
+
+***cpuprofile: go test -run none -bench . -benchtime 3s  -cpuprofile cpu.prof***
+```
+         .      1.40s     97:		if bytes.Equal(buf, find) {
+```
+since algTwo use INDEX instead of function call, so here dont make further optimization
