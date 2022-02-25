@@ -22,3 +22,9 @@ func BenchmarkConcurrentAdd(b *testing.B) {
 		addConcurrent(runtime.NumCPU(), numbers)
 	}
 }
+
+func BenchmarkConcurrentAddGoroutines(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		addConcurrent(10000, numbers)
+	}
+}
