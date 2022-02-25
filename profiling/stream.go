@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"io"
 )
 
 // data represents a table of input and expected output.
@@ -67,21 +66,29 @@ func main() {
 
 func algOne(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
 	input := bytes.NewBuffer(data)
+	// input := &bytes.Buffer{buf: data}
 
 	size := len(find)
 
-	buf := make([]byte, size)
+	buf := make([]byte, 5)
 	end := size - 1
 
 	// read initial chunk
-	if n, err := io.ReadFull(input, buf[:end]); err != nil {
+	if n, err := input.Read(buf[:end]); err != nil {
+		// if n, err := io.ReadFull(input, buf[:end]); err != nil {
 		output.Write(buf[:n])
 		return
 	}
 
 	for {
 		// slice one byte
-		if _, err := io.ReadFull(input, buf[end:]); err != nil {
+		// if _, err := io.ReadFull(input, buf[end:]); err != nil {
+		// 	output.Write(buf[:end])
+		// 	return
+		// }
+		var err error
+		buf[end:][0], err = input.ReadByte()
+		if err != nil {
 			output.Write(buf[:end])
 			return
 		}
@@ -91,7 +98,8 @@ func algOne(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
 			output.Write(repl)
 
 			// read new initial chunk
-			if n, err := io.ReadFull(input, buf[:end]); err != nil {
+			// if n, err := io.ReadFull(input, buf[:end]); err != nil {
+			if n, err := input.Read(buf[:end]); err != nil {
 				output.Write(buf[:n])
 				return
 			}
