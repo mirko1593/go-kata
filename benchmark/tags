@@ -4,11 +4,8 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-BenchmarkConcurrent	io_test.go	/^func BenchmarkConcurrent(b *testing.B) {$/;"	d
-BenchmarkConcurrentAgain	io_test.go	/^func BenchmarkConcurrentAgain(b *testing.B) {$/;"	d
-BenchmarkConcurrentGoroutine	io_test.go	/^func BenchmarkConcurrentGoroutine(b *testing.B) {$/;"	d
-BenchmarkConcurrentGoroutineAgain	io_test.go	/^func BenchmarkConcurrentGoroutineAgain(b *testing.B) {$/;"	d
-BenchmarkSequential	io_test.go	/^func BenchmarkSequential(b *testing.B) {$/;"	d
-BenchmarkSequentialAgain	io_test.go	/^func BenchmarkSequentialAgain(b *testing.B) {$/;"	d
-docs	io_test.go	/^var docs []string$/;"	d
-init	io_test.go	/^func init() {$/;"	d
+add	cpu.go	/^func add(numbers []int) int {$/;"	d
+addConcurrent	cpu.go	/^func addConcurrent(goroutines int, numbers []int) int {$/;"	d
+generateNumbers	cpu.go	/^func generateNumbers(totalNumbers int) []int {$/;"	d
+lv	cpu.go	/^			var lv int$/;"	d
+wg	cpu.go	/^	var wg sync.WaitGroup$/;"	d
