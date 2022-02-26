@@ -22,6 +22,11 @@ $ go tool pprof http://0.0.0.0:5000/debug/pprof/allocs
 $ go tool pprof http://0.0.0.0:5000/debug/pprof/profile\?seconds\=5
 ```
 
+***Trace: Capture a trace file for a brief duration.***
+```
+	$ curl -s http://localhost:5000/debug/pprof/trace?seconds=2 > trace.out
+	$ go tool trace trace.out
+```
 
 Documentation of memory profile options.
 
