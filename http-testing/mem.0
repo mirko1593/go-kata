@@ -1,0 +1,6 @@
+goos: darwin
+goarch: arm64
+pkg: http-testing
+BenchmarkHi-8   	 9153351	       372.1 ns/op	     395 B/op	       5 allocs/op
+PASS
+ok  	http-testing	4.586s
