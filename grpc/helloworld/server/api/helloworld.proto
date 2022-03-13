@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "server/api";
+
+service HelloWorld {
+  rpc SayHello(HelloRequest) returns (HelloResponse) {}
+
+  rpc SayHelloAgain(HelloRequest) returns (HelloResponse) {}
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+ string message = 1;
+}
