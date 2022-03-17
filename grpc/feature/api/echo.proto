@@ -17,7 +17,7 @@ service Echo {
 
   rpc ServerStreamingEcho(EchoRequest) returns (stream EchoResponse) {}
 
-  rpc ClientStreamingEcho(EchoRequest) returns (stream EchoResponse) {}
+  rpc ClientStreamingEcho(stream EchoRequest) returns (EchoResponse) {}
 
-  rpc BidirectionalStreamingEcho(stream EchoRequest) returns (stream EchoRequest) {}
+  rpc BidirectionalStreamingEcho(stream EchoRequest) returns (stream EchoResponse) {}
 }
