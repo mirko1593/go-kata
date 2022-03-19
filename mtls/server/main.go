@@ -5,8 +5,8 @@ import (
 	"crypto/x509"
 	"fmt"
 	"io/ioutil"
+	"mtls/utils"
 	"net/http"
-	"server/utils"
 )
 
 func main() {
