@@ -1,0 +1,68 @@
+<h3>Showing subchannel:</h3>
+<input #textbox type="text" [(ngModel)]="enteredData" (keyup.enter)="processEntry()" required>
+<button (click)="processEntry()">Refresh</button>
+<div>
+  <div *ngIf="subchannel">
+  <table>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>SubchannelRef</td>
+      <td><pre>{{subchannel.getRef().getSubchannelId()}}[{{subchannel.getRef().getName()}}]</pre></td>
+    </tr>
+    <tr>
+      <td>Data</td>
+      <td><pre>{{subchannelDataStr}}</pre></td>
+    </tr>
+    <tr>
+      <td>Channels</td>
+      <td>
+        <div *ngFor="let ref of subchannel.getChannelRefList()">
+          <a routerLink="/channelz/channel/{{ref.getChannelId()}}">{{ref.getChannelId()}}[{{ref.getName()}}]</a>,
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Subchannels</td>
+      <td>
+        <div *ngFor="let ref of subchannel.getSubchannelRefList()">
+          <a routerLink="/channelz/subchannel/{{ref.getChannelId()}}">{{ref.getSubchannelId()}}[{{ref.getName()}}]</a>,
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Sockets</td>
+      <td>
+        <div *ngFor="let ref of subchannel.getSocketRefList()">
+          <a routerLink="/channelz/socket/{{ref.getSocketId()}}">{{ref.getSocketId()}}[{{ref.getName()}}]</a>,
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Channel trace summary</td>
+      <td><pre>{{traceSummary}}</pre></td>
+    </tr>
+    <tr>
+      <td>Channel trace events</td>
+      <td>
+        <div *ngIf="!traceEvents"><pre>No events recorded</pre></div>
+        <div *ngFor="let evt of traceEvents">
+          <pre>{{evt.combinedDetails}}</pre>
+          <div *ngIf="evt.channelRef">
+            <pre> <a routerLink="/channelz/channel/{{evt.channelRef.getChannelId()}}">{{evt.channelRef.getName()}}</a></pre>
+          </div>
+          <div *ngIf="evt.subchannelRef">
+            <pre> <a routerLink="/channelz/subchannel/{{evt.subchannelRef.getSubchannelId()}}">{{evt.subchannelRef.getName()}}</a></pre>
+          </div>
+          <br>
+        </div>
+      </td>
+    </tr>
+  </table>
+  </div>
+  <div *ngIf="!subchannel && id">
+    <p>Subchannel does not exist</p>
+  </div>
+</div>

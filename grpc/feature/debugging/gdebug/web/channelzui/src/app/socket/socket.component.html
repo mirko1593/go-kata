@@ -1,0 +1,40 @@
+<h3>Showing socket:</h3>
+<input #textbox type="text" [(ngModel)]="enteredData" (keyup.enter)="processEntry()" required>
+<button (click)="processEntry()">Refresh</button>
+<div>
+  <div *ngIf="socket">
+  <table>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>Socketref</td>
+      <td><pre>{{socket.getRef().getSocketId()}}[{{socket.getRef().getName()}}]</pre></td>
+    </tr>
+    <tr>
+      <td>Local Address</td>
+      <td><pre>{{socket.getLocal() | addrToString}}</pre></td>
+    </tr>
+    <tr>
+      <td>Remote Address</td>
+      <td><pre>{{socket.getRemote() | addrToString}}</pre></td>
+    </tr>
+    <tr>
+      <td>Security</td>
+      <td><pre>{{securiyStr}}</pre></td>
+    </tr>
+    <tr>
+      <td>Data</td>
+      <td><pre>{{simplifiedData}}</pre></td>
+    </tr>
+    <tr *ngFor="let opt of socketOptions()">
+      <td>Socket Option: {{opt.name}}</td>
+      <td><pre>{{opt.value}}</pre></td>
+    </tr>
+  </table>
+  </div>
+  <div *ngIf="!socket">
+    <p>Socket does not exist</p>
+  </div>
+</div>
