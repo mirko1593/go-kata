@@ -39,6 +39,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	defer lis.Close()
+
 	s := grpc.NewServer()
 	service.RegisterChannelzServiceToServer(s)
 	go s.Serve(lis)
