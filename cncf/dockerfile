@@ -1,0 +1,15 @@
+FROM golang:1.17 as build_service
+ENV CGO_ENABLED 0
+ARG BUILD_REF
+
+COPY . /service
+
+WORKDIR /service
+RUN go build -o service -ldflags "-X main.build=${BUILD_REF}"
+
+
+FROM alpine:3.15
+WORKDIR /service
+COPY --from=build_service /service/service /service/
+EXPOSE 8080
+CMD ["./service"]
