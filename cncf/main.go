@@ -43,16 +43,14 @@ func tracerProvider(url string) (*tracesdk.TracerProvider, error) {
 	return tp, nil
 }
 
-func init() {
+func main() {
 	tp, err := tracerProvider("http://localhost:14268/api/traces")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	otel.SetTracerProvider(tp)
-}
 
-func main() {
 	http.HandleFunc("/liveness", handlers.Liveness)
 
 	http.HandleFunc("/fib", handlers.HandleFib)
