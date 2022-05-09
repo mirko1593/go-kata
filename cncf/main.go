@@ -18,6 +18,7 @@ import (
 var build = "develop"
 var pid = os.Getpid()
 
+// ...
 const (
 	service     = "cncf-service"
 	environment = "develop"
