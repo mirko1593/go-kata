@@ -1,9 +1,12 @@
 package handlers
 
 import (
+	"bytes"
 	"cncf/logger"
 	"context"
+	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -12,6 +15,7 @@ import (
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 )
 
 var l *logger.Logger
@@ -28,7 +32,28 @@ func init() {
 func HandleFib(w http.ResponseWriter, r *http.Request) {
 	tr := otel.Tracer("/fib")
 	ctx, span := tr.Start(r.Context(), "Handler")
+	tracerID := r.Header.Get("tracer-id")
+	spanID := r.Header.Get("span-id")
+	log.Println("traceID", tracerID)
+	log.Println("spanID", spanID)
+	if tracerID != "" && spanID != "" {
+		var tid trace.TraceID
+		fmt.Println("read trace ID", tracerID, "before:", tid.String())
+		b, _ := hex.DecodeString(tracerID)
+		bytes.NewReader(b).Read(tid[:])
+		fmt.Println("read tracer ID", tracerID, "after:", string(tid[:]))
+
+		var sid trace.SpanID
+		fmt.Println("read span ID", spanID, "before:", sid.String())
+		b, _ = hex.DecodeString(spanID)
+		bytes.NewReader(b).Read(sid[:])
+		fmt.Println("read span ID", spanID, "after:", string(sid[:]))
+
+		ctx = trace.ContextWithSpanContext(ctx, span.SpanContext().WithTraceID(tid).WithSpanID(sid))
+		ctx, span = tr.Start(ctx, "HandleFib")
+	}
 	defer span.End()
+
 	bs, _ := io.ReadAll(r.Body)
 	var data struct {
 		Number int64
@@ -42,7 +67,7 @@ func HandleFib(w http.ResponseWriter, r *http.Request) {
 	l.For(ctx).Info("this is a log both to log and span")
 
 	f, _ := func(ctx context.Context) (uint64, error) {
-		_, span := otel.Tracer("fib").Start(ctx, "Fibonacci")
+		_, span := otel.Tracer("not-fib").Start(ctx, "Fibonacci")
 		defer span.End()
 		return Fibonacci(uint(data.Number))
 	}(ctx)
