@@ -86,6 +86,12 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
+	tr := tp.Tracer("main")
+	ctx, span := tr.Start(ctx, "main")
+	defer span.End()
+
+	span.SetAttributes(attribute.Key("start").String("main-func"))
+
 	r, err := c.SayHello(ctx, &api.HelloRequest{Name: *name})
 	if err != nil {
 		log.Fatalf("could not greet: %v", *name)
