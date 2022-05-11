@@ -19,6 +19,7 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.10.0"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 )
 
 var (
@@ -54,6 +55,13 @@ type server struct {
 
 // SayHello implements helloworld.GreeterServer
 func (s *server) SayHello(ctx context.Context, in *api.HelloRequest) (*api.HelloResponse, error) {
+	md, ok := metadata.FromIncomingContext(ctx)
+	if ok {
+		log.Printf("Received Metadata: %v", md)
+	} else {
+		log.Printf("Received No Metadata")
+	}
+
 	log.Printf("Recevied: %v", in.GetName())
 	return &api.HelloResponse{
 		Message: "Hello " + in.GetName(),

@@ -10,6 +10,7 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/metadata"
 
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go.opentelemetry.io/otel"
@@ -91,6 +92,9 @@ func main() {
 	defer span.End()
 
 	span.SetAttributes(attribute.Key("start").String("main-func"))
+
+	md := metadata.New(map[string]string{"from": "client main"})
+	ctx = metadata.NewOutgoingContext(ctx, md)
 
 	r, err := c.SayHello(ctx, &api.HelloRequest{Name: *name})
 	if err != nil {
