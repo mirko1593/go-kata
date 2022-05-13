@@ -133,5 +133,5 @@ var HelloWorld_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/helloworld.proto",
+	Metadata: "server/api/helloworld.proto",
 }

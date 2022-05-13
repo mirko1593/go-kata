@@ -4,11 +4,13 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"helloworld/server/api"
 	"log"
 	"net"
-	"server/api"
 
 	"google.golang.org/grpc"
+
+	"google.golang.org/grpc/reflection"
 )
 
 var (
@@ -37,6 +39,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
+	reflection.Register(s)
 	api.RegisterHelloWorldServer(s, &server{})
 	log.Printf("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
