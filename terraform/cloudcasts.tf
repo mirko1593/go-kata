@@ -5,7 +5,15 @@ terraform {
       version = "~> 3.0"
     }
   }
+
+  backend "s3" {
+    bucket = "cloudcasts-terraform-state"
+    key = "cloudcasts/terraform.tfstate"
+    region = "cn-northwest-1"
+    profile = "default"
+  }
 }
+
 
 provider "aws" {
   region  = "cn-northwest-1"
