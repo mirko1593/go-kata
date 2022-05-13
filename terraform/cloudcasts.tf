@@ -6,12 +6,14 @@ terraform {
     }
   }
 
-  backend "s3" {
-    bucket = "cloudcasts-terraform-state"
-    key = "cloudcasts/terraform.tfstate"
-    region = "cn-northwest-1"
-    profile = "default"
-  }
+  backend "local" {}
+
+  # backend "s3" {
+  #   bucket = "cloudcasts-terraform-state"
+  #   key = "cloudcasts/terraform.tfstate"
+  #   region = "cn-northwest-1"
+  #   profile = "default"
+  # }
 }
 
 
