@@ -2,3 +2,4 @@ tags
 otel/traces.txt
 terraform/manual/.terraform/providers
 terraform/community/.terraform/providers
+terraform/**/.terraform/providers
