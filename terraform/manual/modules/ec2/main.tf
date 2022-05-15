@@ -1,7 +1,7 @@
-  resource "random_shuffle" "subnets" {
-    input = var.subnets
-    result_count = 1
-  }
+resource "random_shuffle" "subnets" {
+  input = var.subnets
+  result_count = 1
+}
 
 resource "aws_instance" "cloudcasts_web" {
   ami = var.instance_ami
