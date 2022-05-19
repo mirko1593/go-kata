@@ -15,8 +15,8 @@ import (
 )
 
 // revive:disable
-// HandleHelloServer ...
-func HandleHelloServer(w http.ResponseWriter, r *http.Request) {
+// HandleOtelServer ...
+func HandleOtelServer(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	span := trace.SpanFromContext(ctx)
 	bag := baggage.FromContext(ctx)
@@ -50,8 +50,8 @@ func HandleHelloServer(w http.ResponseWriter, r *http.Request) {
 	w.Write(d)
 }
 
-// HandleHelloClient ...
-func HandleHelloClient(w http.ResponseWriter, r *http.Request) {
+// HandleOtelClient ...
+func HandleOtelClient(w http.ResponseWriter, r *http.Request) {
 	client := http.Client{
 		Transport: otelhttp.NewTransport(http.DefaultTransport),
 	}
