@@ -19,7 +19,7 @@ func HandleCustomClient(w http.ResponseWriter, r *http.Request) {
 	ctx := baggage.ContextWithBaggage(r.Context(), bag)
 
 	// by progagation.TracerContext{}
-	ctx, span := otel.Tracer("hello service").Start(ctx, "hello client")
+	ctx, span := otel.Tracer("hello service").Start(ctx, "HandleCustomClient")
 	defer span.End()
 
 	var data struct {
