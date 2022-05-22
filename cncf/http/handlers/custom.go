@@ -40,6 +40,7 @@ func HandleCustomClient(w http.ResponseWriter, r *http.Request) {
 	}
 
 	span.AddEvent("manual inject")
+	// can wrap a custom transport to do this injection automatically.
 	otel.GetTextMapPropagator().Inject(ctx, headerCarrier(req.Header))
 	client := http.Client{}
 	res, err := client.Do(req)

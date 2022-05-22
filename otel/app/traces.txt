@@ -1,0 +1,238 @@
+{
+	"Name": "Poll",
+	"SpanContext": {
+		"TraceID": "44036025dfe84f5cfbe636f55eabe735",
+		"SpanID": "b016bf9a150ec8df",
+		"TraceFlags": "01",
+		"TraceState": "",
+		"Remote": false
+	},
+	"Parent": {
+		"TraceID": "44036025dfe84f5cfbe636f55eabe735",
+		"SpanID": "130422bd5bce5cba",
+		"TraceFlags": "01",
+		"TraceState": "",
+		"Remote": false
+	},
+	"SpanKind": 1,
+	"StartTime": "0001-01-01T00:00:00Z",
+	"EndTime": "0001-01-01T00:00:00Z",
+	"Attributes": [
+		{
+			"Key": "request.n",
+			"Value": {
+				"Type": "STRING",
+				"Value": "10"
+			}
+		}
+	],
+	"Events": null,
+	"Links": null,
+	"Status": {
+		"Code": "Unset",
+		"Description": ""
+	},
+	"DroppedAttributes": 0,
+	"DroppedEvents": 0,
+	"DroppedLinks": 0,
+	"ChildSpanCount": 0,
+	"Resource": null,
+	"InstrumentationLibrary": {
+		"Name": "mirkowang",
+		"Version": "",
+		"SchemaURL": ""
+	}
+}
+{
+	"Name": "Fibonacci",
+	"SpanContext": {
+		"TraceID": "44036025dfe84f5cfbe636f55eabe735",
+		"SpanID": "5183f1a3a189a9d5",
+		"TraceFlags": "01",
+		"TraceState": "",
+		"Remote": false
+	},
+	"Parent": {
+		"TraceID": "44036025dfe84f5cfbe636f55eabe735",
+		"SpanID": "842aedea36c78dfb",
+		"TraceFlags": "01",
+		"TraceState": "",
+		"Remote": false
+	},
+	"SpanKind": 1,
+	"StartTime": "0001-01-01T00:00:00Z",
+	"EndTime": "0001-01-01T00:00:00Z",
+	"Attributes": null,
+	"Events": null,
+	"Links": null,
+	"Status": {
+		"Code": "Unset",
+		"Description": ""
+	},
+	"DroppedAttributes": 0,
+	"DroppedEvents": 0,
+	"DroppedLinks": 0,
+	"ChildSpanCount": 0,
+	"Resource": null,
+	"InstrumentationLibrary": {
+		"Name": "mirkowang",
+		"Version": "",
+		"SchemaURL": ""
+	}
+}
+{
+	"Name": "Write",
+	"SpanContext": {
+		"TraceID": "44036025dfe84f5cfbe636f55eabe735",
+		"SpanID": "842aedea36c78dfb",
+		"TraceFlags": "01",
+		"TraceState": "",
+		"Remote": false
+	},
+	"Parent": {
+		"TraceID": "44036025dfe84f5cfbe636f55eabe735",
+		"SpanID": "130422bd5bce5cba",
+		"TraceFlags": "01",
+		"TraceState": "",
+		"Remote": false
+	},
+	"SpanKind": 1,
+	"StartTime": "0001-01-01T00:00:00Z",
+	"EndTime": "0001-01-01T00:00:00Z",
+	"Attributes": null,
+	"Events": null,
+	"Links": null,
+	"Status": {
+		"Code": "Unset",
+		"Description": ""
+	},
+	"DroppedAttributes": 0,
+	"DroppedEvents": 0,
+	"DroppedLinks": 0,
+	"ChildSpanCount": 1,
+	"Resource": null,
+	"InstrumentationLibrary": {
+		"Name": "mirkowang",
+		"Version": "",
+		"SchemaURL": ""
+	}
+}
+{
+	"Name": "Poll",
+	"SpanContext": {
+		"TraceID": "4435b4382ce39816cc3b9362fc366a80",
+		"SpanID": "b94eb5e999c89a3d",
+		"TraceFlags": "01",
+		"TraceState": "",
+		"Remote": false
+	},
+	"Parent": {
+		"TraceID": "4435b4382ce39816cc3b9362fc366a80",
+		"SpanID": "57f8b148d84f6396",
+		"TraceFlags": "01",
+		"TraceState": "",
+		"Remote": false
+	},
+	"SpanKind": 1,
+	"StartTime": "0001-01-01T00:00:00Z",
+	"EndTime": "0001-01-01T00:00:00Z",
+	"Attributes": [
+		{
+			"Key": "request.n",
+			"Value": {
+				"Type": "STRING",
+				"Value": "12"
+			}
+		}
+	],
+	"Events": null,
+	"Links": null,
+	"Status": {
+		"Code": "Unset",
+		"Description": ""
+	},
+	"DroppedAttributes": 0,
+	"DroppedEvents": 0,
+	"DroppedLinks": 0,
+	"ChildSpanCount": 0,
+	"Resource": null,
+	"InstrumentationLibrary": {
+		"Name": "mirkowang",
+		"Version": "",
+		"SchemaURL": ""
+	}
+}
+{
+	"Name": "Fibonacci",
+	"SpanContext": {
+		"TraceID": "4435b4382ce39816cc3b9362fc366a80",
+		"SpanID": "1f0322c381d6872d",
+		"TraceFlags": "01",
+		"TraceState": "",
+		"Remote": false
+	},
+	"Parent": {
+		"TraceID": "4435b4382ce39816cc3b9362fc366a80",
+		"SpanID": "719d8b8de18e4c2e",
+		"TraceFlags": "01",
+		"TraceState": "",
+		"Remote": false
+	},
+	"SpanKind": 1,
+	"StartTime": "0001-01-01T00:00:00Z",
+	"EndTime": "0001-01-01T00:00:00Z",
+	"Attributes": null,
+	"Events": null,
+	"Links": null,
+	"Status": {
+		"Code": "Unset",
+		"Description": ""
+	},
+	"DroppedAttributes": 0,
+	"DroppedEvents": 0,
+	"DroppedLinks": 0,
+	"ChildSpanCount": 0,
+	"Resource": null,
+	"InstrumentationLibrary": {
+		"Name": "mirkowang",
+		"Version": "",
+		"SchemaURL": ""
+	}
+}
+{
+	"Name": "Write",
+	"SpanContext": {
+		"TraceID": "4435b4382ce39816cc3b9362fc366a80",
+		"SpanID": "719d8b8de18e4c2e",
+		"TraceFlags": "01",
+		"TraceState": "",
+		"Remote": false
+	},
+	"Parent": {
+		"TraceID": "4435b4382ce39816cc3b9362fc366a80",
+		"SpanID": "57f8b148d84f6396",
+		"TraceFlags": "01",
+		"TraceState": "",
+		"Remote": false
+	},
+	"SpanKind": 1,
+	"StartTime": "0001-01-01T00:00:00Z",
+	"EndTime": "0001-01-01T00:00:00Z",
+	"Attributes": null,
+	"Events": null,
+	"Links": null,
+	"Status": {
+		"Code": "Unset",
+		"Description": ""
+	},
+	"DroppedAttributes": 0,
+	"DroppedEvents": 0,
+	"DroppedLinks": 0,
+	"ChildSpanCount": 1,
+	"Resource": null,
+	"InstrumentationLibrary": {
+		"Name": "mirkowang",
+		"Version": "",
+		"SchemaURL": ""
+	}
+}
