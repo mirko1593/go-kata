@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -86,6 +87,9 @@ func main() {
 	http.HandleFunc("/server/hello/custom", handlers.HandleCustomServer)
 
 	http.HandleFunc("/local", handlers.HandleLocal)
+
+	// scrape route for prometheus
+	http.Handle("/metrics", promhttp.Handler())
 
 	log.Fatal(http.ListenAndServe(":"+*port, nil))
 }
