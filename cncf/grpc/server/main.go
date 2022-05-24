@@ -6,9 +6,13 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"net/http"
 	"os"
 	"rpcservice/api"
 
+	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -68,6 +72,22 @@ func (s *server) SayHello(ctx context.Context, in *api.HelloRequest) (*api.Hello
 	}, nil
 }
 
+var (
+	reg = prometheus.NewRegistry()
+
+	grpcMetrics = grpc_prometheus.NewServerMetrics()
+
+	customizedCounterMetric = prometheus.NewCounterVec(prometheus.CounterOpts{
+		Name: "greeter_server_say_hello_method_handle_count",
+		Help: "Total number of RPCs handled on the server.",
+	}, []string{"name"})
+)
+
+func init() {
+	reg.MustRegister(grpcMetrics, customizedCounterMetric)
+	customizedCounterMetric.WithLabelValues("Test")
+}
+
 func main() {
 	tp, _ := tracerProvider("http://localhost:14268/api/traces")
 	otel.SetTracerProvider(tp)
@@ -89,10 +109,27 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer lis.Close()
+
+	httpServer := &http.Server{
+		Handler: promhttp.HandlerFor(reg, promhttp.HandlerOpts{}),
+		Addr:    fmt.Sprintf("0.0.0.0:%d", 9092),
+	}
+
+	go func() {
+		if err := httpServer.ListenAndServe(); err != nil {
+			log.Fatal("Unable to start a http server")
+		}
+	}()
 
 	s := grpc.NewServer(
+		// opentelemetry
 		grpc.UnaryInterceptor(otelgrpc.UnaryServerInterceptor()),
 		grpc.StreamInterceptor(otelgrpc.StreamServerInterceptor()),
+
+		// prometheus
+		grpc.StreamInterceptor(grpcMetrics.StreamServerInterceptor()),
+		grpc.UnaryInterceptor(grpcMetrics.UnaryServerInterceptor()),
 	)
 	api.RegisterGreeterServer(s, &server{})
 	log.Printf("server listening at %v", lis.Addr())

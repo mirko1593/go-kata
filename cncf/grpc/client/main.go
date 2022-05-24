@@ -8,6 +8,8 @@ import (
 	"rpcservice/api"
 	"time"
 
+	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
+	"github.com/prometheus/client_golang/prometheus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/metadata"
@@ -71,11 +73,18 @@ func main() {
 	}()
 
 	flag.Parse()
+
+	reg := prometheus.NewRegistry()
+	grpcMetrics := grpc_prometheus.NewClientMetrics()
+	reg.MustRegister(grpcMetrics)
+
 	conn, err := grpc.Dial(
 		*addr,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithUnaryInterceptor(otelgrpc.UnaryClientInterceptor()),
+		grpc.WithUnaryInterceptor(grpcMetrics.UnaryClientInterceptor()),
 		grpc.WithStreamInterceptor(otelgrpc.StreamClientInterceptor()),
+		grpc.WithStreamInterceptor(grpcMetrics.StreamClientInterceptor()),
 	)
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
