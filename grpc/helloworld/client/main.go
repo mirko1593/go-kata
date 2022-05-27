@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"flag"
-	"helloworld/client/api"
+	"helloworld/api"
 	"log"
 	"time"
 
