@@ -21,11 +21,9 @@ import (
 var l *logger.Logger
 
 func init() {
-
 	l = &logger.Logger{
 		Logger: log.New(os.Stdout, "cncf_service:", log.LstdFlags),
 	}
-
 }
 
 // HandleFib ...
