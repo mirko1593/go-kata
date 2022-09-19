@@ -2,10 +2,12 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"log"
 	"os"
 	"os/signal"
+	"runtime"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -39,6 +41,12 @@ func newResource() *resource.Resource {
 }
 
 func main() {
+
+	// testFrames()
+	// if true == true {
+	// 	return
+	// }
+
 	l := log.New(os.Stdout, "", 0)
 
 	f, err := os.Create("traces.txt")
@@ -84,4 +92,32 @@ func main() {
 			l.Fatal(err)
 		}
 	}
+}
+
+func testFrames() {
+	c := func() {
+		pc := make([]uintptr, 10)
+		n := runtime.Callers(1, pc)
+		if n == 0 {
+			return
+		}
+
+		pc = pc[:n]
+		frames := runtime.CallersFrames(pc)
+
+		for {
+			frame, more := frames.Next()
+
+			fmt.Printf("- more:%v | file: %s, line: %d, functionName: %s\n", more, frame.File, frame.Line, frame.Function)
+
+			if !more {
+				break
+			}
+		}
+	}
+
+	b := func() { c() }
+	a := func() { b() }
+
+	a()
 }
