@@ -17,6 +17,9 @@ var pingCounter = prometheus.NewCounter(
 
 func ping(w http.ResponseWriter, r *http.Request) {
 	pingCounter.Inc()
+
+	NewHandlerCounter("ping").Inc()
+
 	fmt.Fprintf(w, "pong")
 }
 
@@ -27,4 +30,14 @@ func main() {
 	http.Handle("/metrics", promhttp.Handler())
 
 	http.ListenAndServe(":8090", nil)
+}
+
+// NewHandlerCounter ...
+func NewHandlerCounter(handlerName string) prometheus.Counter {
+	return prometheus.NewCounter(
+		prometheus.CounterOpts{
+			Name: handlerName,
+			Help: "No. of request handled by " + handlerName,
+		},
+	)
 }
