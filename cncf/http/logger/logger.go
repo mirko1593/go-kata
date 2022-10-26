@@ -12,23 +12,25 @@ type Logger struct {
 	*log.Logger
 }
 
-type spanLogger struct {
+// SpanLogger ...
+type SpanLogger struct {
 	*log.Logger
 	span trace.Span
 }
 
-func (sl *spanLogger) Info(msg string) {
+// Info ...
+func (sl *SpanLogger) Info(msg string) {
 	sl.span.AddEvent(msg)
 	sl.Logger.Println(msg)
 }
 
-func (sl *spanLogger) logToSpan(level string, msg string) {
+func (sl *SpanLogger) logToSpan(level string, msg string) {
 }
 
 // For ...
-func (l *Logger) For(ctx context.Context) *spanLogger {
+func (l *Logger) For(ctx context.Context) *SpanLogger {
 	if span := trace.SpanFromContext(ctx); span != nil {
-		return &spanLogger{
+		return &SpanLogger{
 			l.Logger,
 			span,
 		}

@@ -2,6 +2,7 @@ package main
 
 import (
 	"cncf/handlers"
+	"cncf/logger"
 	"flag"
 	"log"
 	"net/http"
@@ -57,6 +58,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	logger.NewDevelopment()
+	defer logger.Sync()
 
 	otel.SetTracerProvider(tp)
 
